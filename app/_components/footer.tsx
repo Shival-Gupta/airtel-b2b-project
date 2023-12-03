@@ -43,12 +43,10 @@ export const Footer = () => {
                     </div>
 
                     <div className="flex flex-col items-center">
-                        <p>Get in Touch</p>
+                        <p className="mb-4">Get in Touch</p>
                         <Button variant={"ghost"} className="text-xs" disabled>
                             Contact us 24x7 <br/>
-                            8826688266
-                        </Button>
-                        <Button variant={"ghost"} className="text-xs font-black" disabled>
+                            8826688266 <br/> <br/>
                             corporatessupport@airtel
                         </Button>
                     </div>
