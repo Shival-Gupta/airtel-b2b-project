@@ -26,7 +26,6 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en" suppressHydrationWarning>
         <body className={font.className}>
-          <head />
           <ThemeProvider
             attribute="class"
             defaultTheme="system"
