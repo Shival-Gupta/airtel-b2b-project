@@ -33,15 +33,15 @@ export default function RootLayout({
             storageKey="theme"
             disableTransitionOnChange
           >
-            <div className="h-full bg-accent">
+            <section className="h-full">
               <Navbar />
-              <main className="pt-14 pb-20 bg-accent min-h-[75%]">
-                <div className="w-full py-10 px-10 lg:px-32 md:max-w-screen-2xl mx-auto">
+              <main className="py-20 min-h-[75%] bg-accent">
+                <div className="container mx-auto px-6 lg:px-16">
                   {children}
                 </div>
               </main>
               <Footer />
-            </div>
+            </section>
           </ThemeProvider>
         </body>
       </html>
