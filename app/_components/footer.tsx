@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 
 export const Footer = () => {
   return (
-    <footer className="md:fixed bottom-0 w-full p-8 px-10 lg:px-32 border-t shadow-2xl bg-background flex items-center">
+    <footer className="bottom-0 w-full p-8 px-10 lg:px-32 border-t shadow-2xl bg-background flex items-center">
       <div className="md:max-w-screen-2xl mx-auto flex items-center w-full justify-center">
         <div className="flex flex-col md:flex-row items-center md:items-start md:justify-start justify-center gap-12 text-sm">
 

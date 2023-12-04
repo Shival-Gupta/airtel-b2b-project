@@ -1,11 +1,12 @@
 import "@/app/globals.css";
 import { Inter } from "next/font/google";
+import { siteConfig } from "@/siteConfig";
 
 import { ClerkProvider } from "@clerk/nextjs";
-import { siteConfig } from "@/siteConfig";
+import { dark } from "@clerk/themes";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 
-import { Navbar } from "@/app/_components/navbar";
+import { Header } from "@/app/_components/header";
 import { Footer } from "@/app/_components/footer";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -22,26 +23,41 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+
   return (
-    <ClerkProvider>
+    <ClerkProvider appearance={{
+      // baseTheme: dark,
+      // variables: {
+      //   colorPrimary: 'var(--primary)',
+      //   colorDanger: 'var(--danger)',
+      //   colorSuccess: 'var(--success)',
+      //   colorWarning: 'var(--destructive)',
+      //   colorAlphaShade: 'var(--accent)',
+      //   colorTextOnPrimaryBackground: 'var(--primary)',
+      //   colorTextSecondary: 'var(--secondary)',
+      //   colorBackground: 'var(--background)',
+      //   colorInputText: 'var(--foreground)',
+      //   colorInputBackground: 'var(--primary-foreground)',
+      //   borderRadius: 'var(--radius)',
+      // }
+    }}>
       <html lang="en" suppressHydrationWarning>
         <body className={font.className}>
           <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
+            attribute='class'
+            defaultTheme='light'
             enableSystem
-            storageKey="theme"
-            disableTransitionOnChange
+            storageKey='theme'
           >
-            <section className="h-full">
-              <Navbar />
-              <main className="py-20 min-h-[75%] bg-accent">
+            <div className="h-full">
+              <Header />
+              <main className="mt-14 py-6 min-h-[75%] bg-accent">
                 <div className="container mx-auto px-6 lg:px-16">
                   {children}
                 </div>
               </main>
               <Footer />
-            </section>
+            </div>
           </ThemeProvider>
         </body>
       </html>

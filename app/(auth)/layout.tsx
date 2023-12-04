@@ -4,8 +4,8 @@ export default function AuthLayout({
     children: React.ReactNode;
 }) {
     return (
-        <div className="flex justify-end">
-            <div className="max-w-2xl w-auto px-16 lg:px-32 mb-48">
+        <div className="flex justify-end pt-10 pr-5">
+            <div className="max-w-2xl w-auto">
                 {children}
             </div>
         </div>

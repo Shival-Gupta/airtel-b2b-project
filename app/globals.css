@@ -12,25 +12,28 @@ body,
     :root {
         /* Light Theme */
         --background: 0 0% 100%; /* White */
-        --foreground: 240 10% 3.9%; /* Light Grayish Red */
+        --foreground: 240 10% 3.9%; /* Black */
         --card: 0 0% 100%; /* White */
-        --card-foreground: 240 10% 3.9%; /* Light Grayish Red */
+        --card-foreground: 240 10% 3.9%; /* Black */
         --popover: 0 0% 100%; /* White */
-        --popover-foreground: 240 10% 3.9%; /* Light Grayish Red */
+        --popover-foreground: 240 10% 3.9%; /* Black */
         --primary: 0 72.2% 50.6%; /* Red */
         --primary-foreground: 355.7 100% 97.3%; /* Almost White */
         --secondary: 240 4.8% 95.9%; /* Desaturated Red */
-        --secondary-foreground: 240 5.9% 10%; /* Dark Red */
+        --secondary-foreground: 240 5.9% 10%; /* Almost Black */
         --muted: 240 4.8% 95.9%; /* Desaturated Red */
         --muted-foreground: 240 3.8% 46.1%; /* Mid-tone Red */
         --accent: 240 4.8% 95.9%; /* Desaturated Red */
-        --accent-foreground: 240 5.9% 10%; /* Dark Red */
+        --accent-foreground: 240 5.9% 10%; /* Almost Black */
         --destructive: 0 84.2% 60.2%; /* Dark Red */
         --destructive-foreground: 0 0% 98%; /* Almost White */
         --border: 240 5.9% 90%; /* Desaturated Red */
         --input: 240 5.9% 90%; /* Desaturated Red */
         --ring: 0 72.2% 50.6%; /* Red */
         --radius: 0.5rem; /* Border Radius */
+        
+        --success: 120 72.2% 50.6%; /* Success: Greenish */
+        --danger: 15.2 72.2% 50.6%; /* Danger: Orangeish Red */
     }
 
     .dark {
@@ -54,6 +57,9 @@ body,
         --border: 240 3.7% 15.9%; /* Dark, Desaturated Red */
         --input: 240 3.7% 15.9%; /* Dark, Desaturated Red */
         --ring: 0 72.2% 50.6%; /* Red */
+
+        --success: 120 72.2% 50.6%; /* Success: Greenish */
+        --danger: 15.2 72.2% 50.6%; /* Danger: Orangeish Red */
     }
 }
 

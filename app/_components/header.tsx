@@ -4,11 +4,11 @@ import { Button } from "@/components/ui/button";
 import { ModeToggle } from "@/components/modeToggle";
 import { UserButton, auth } from "@clerk/nextjs";
 
-export const Navbar = () => {
-  const { userId }: { userId: string | null } = auth();
+export const Header = () => {
 
+  const { userId }: { userId: string | null } = auth();
   return (
-    <nav className="fixed top-0 h-14 w-full px-10 lg:px-32 border-b shadow-sm bg-primary flex items-center">
+    <header className="fixed z-40 top-0 h-14 w-full px-10 lg:px-32 border-b shadow-sm bg-primary flex items-center">
       <div className="md:max-w-screen-2xl mx-auto flex items-center w-full justify-between">
         <Logo />
 
@@ -28,6 +28,6 @@ export const Navbar = () => {
           <ModeToggle />
         </div>
       </div>
-    </nav>
+    </header>
   );
 };
