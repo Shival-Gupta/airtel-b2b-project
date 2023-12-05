@@ -8,9 +8,10 @@ export const Footer = () => {
 
           <div className="flex flex-col items-center">
             <p>Quick Access</p>
-            <Button variant={"ghost"} className="text-xs">
-              Terms and Condition
-            </Button>
+            <Button variant={"ghost"} className="text-xs">Retail Banking</Button>
+            <Button variant={"ghost"} className="text-xs">Investor Relation</Button>
+            <Button variant={"ghost"} className="text-xs">Terms and Condition</Button>
+            <Button variant={"ghost"} className="text-xs">About Us</Button>
           </div>
 
           <div className="flex flex-col items-center">
@@ -45,7 +46,7 @@ export const Footer = () => {
           <div className="flex flex-col items-center">
             <p className="mb-4">Get in Touch</p>
             <Button variant={"ghost"} className="text-xs" disabled>
-              <a href="tel:+918826688266">Contact us 24x7<br/>8826688266</a>
+              <a href="tel:+918826688266">Contact us 24x7<br />8826688266</a>
             </Button>
             <Button variant={"ghost"} className="text-xs" disabled>
               <a href="mailto:corporatessupport@airtel">corporatessupport@airtel</a>

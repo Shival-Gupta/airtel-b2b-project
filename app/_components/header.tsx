@@ -2,7 +2,8 @@ import Link from "next/link";
 import { Logo } from "@/components/logo";
 import { Button } from "@/components/ui/button";
 import { ModeToggle } from "@/components/modeToggle";
-import { UserButton, auth } from "@clerk/nextjs";
+import { ClerkLoaded, ClerkLoading, UserButton, auth } from "@clerk/nextjs";
+import { UserNav } from "../(dashboard)/_components/user-nav";
 
 export const Header = () => {
 
@@ -21,11 +22,19 @@ export const Header = () => {
               <Button variant={"secondary"} size="sm" className="px-6">
                 <Link href={"" + process.env.SIGNUP}>Signup</Link>
               </Button>
+              <ModeToggle />
             </>
           ) : (
-            <UserButton afterSignOutUrl="/" />
+            <>
+              <ModeToggle />
+              <ClerkLoading>
+                <UserNav />
+              </ClerkLoading>
+              <ClerkLoaded>
+                <UserButton afterSignOutUrl="/" />
+              </ClerkLoaded>
+            </>
           )}
-          <ModeToggle />
         </div>
       </div>
     </header>

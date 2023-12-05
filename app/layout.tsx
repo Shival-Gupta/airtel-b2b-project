@@ -25,22 +25,24 @@ export default function RootLayout({
 }) {
 
   return (
-    <ClerkProvider appearance={{
-      // baseTheme: dark,
-      // variables: {
-      //   colorPrimary: 'var(--primary)',
-      //   colorDanger: 'var(--danger)',
-      //   colorSuccess: 'var(--success)',
-      //   colorWarning: 'var(--destructive)',
-      //   colorAlphaShade: 'var(--accent)',
-      //   colorTextOnPrimaryBackground: 'var(--primary)',
-      //   colorTextSecondary: 'var(--secondary)',
-      //   colorBackground: 'var(--background)',
-      //   colorInputText: 'var(--foreground)',
-      //   colorInputBackground: 'var(--primary-foreground)',
-      //   borderRadius: 'var(--radius)',
-      // }
-    }}>
+    <ClerkProvider
+    appearance={{
+      baseTheme: dark,
+    //   variables: {
+    //     colorPrimary: 'var(--primary)',
+    //     colorDanger: 'var(--danger)',
+    //     colorSuccess: 'var(--success)',
+    //     colorWarning: 'var(--destructive)',
+    //     colorAlphaShade: 'var(--accent)',
+    //     colorTextOnPrimaryBackground: 'var(--primary)',
+    //     colorTextSecondary: 'var(--secondary)',
+    //     colorBackground: 'var(--background)',
+    //     colorInputText: 'var(--foreground)',
+    //     colorInputBackground: 'var(--primary-foreground)',
+    //     borderRadius: 'var(--radius)',
+    //   }
+    }}
+    >
       <html lang="en" suppressHydrationWarning>
         <body className={font.className}>
           <ThemeProvider
@@ -48,6 +50,7 @@ export default function RootLayout({
             defaultTheme='light'
             enableSystem
             storageKey='theme'
+            // disableTransitionOnChange
           >
             <div className="h-full">
               <Header />
