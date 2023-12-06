@@ -1,3 +1,5 @@
+"use client"
+
 import { Button } from "@/components/ui/button";
 
 export const Footer = () => {
@@ -8,37 +10,37 @@ export const Footer = () => {
 
           <div className="flex flex-col items-center">
             <p>Quick Access</p>
-            <Button variant={"ghost"} className="text-xs">Retail Banking</Button>
-            <Button variant={"ghost"} className="text-xs">Investor Relation</Button>
-            <Button variant={"ghost"} className="text-xs">Terms and Condition</Button>
-            <Button variant={"ghost"} className="text-xs">About Us</Button>
+            <Button variant={"disabled"} className="text-xs">Retail Banking</Button>
+            <Button variant={"disabled"} className="text-xs">Investor Relation</Button>
+            <Button variant={"disabled"} className="text-xs">Terms and Condition</Button>
+            <Button variant={"disabled"} className="text-xs">About Us</Button>
           </div>
 
           <div className="flex flex-col items-center">
             <p>Help at Hand</p>
-            <Button variant={"ghost"} className="text-xs">
+            <Button variant={"disabled"} className="text-xs">
               Banking Points
             </Button>
-            <Button variant={"ghost"} className="text-xs">
+            <Button variant={"disabled"} className="text-xs">
               Banking Security Tips
             </Button>
-            <Button variant={"ghost"} className="text-xs">
+            <Button variant={"disabled"} className="text-xs">
               Fraud Awareness Scenarios
             </Button>
-            <Button variant={"ghost"} className="text-xs">
+            <Button variant={"disabled"} className="text-xs">
               FAQs
             </Button>
           </div>
 
           <div className="flex flex-col items-center">
             <p>Social Connect</p>
-            <Button variant={"ghost"} className="text-xs">
+            <Button variant={"disabled"} className="text-xs">
               Facebook
             </Button>
-            <Button variant={"ghost"} className="text-xs">
+            <Button variant={"disabled"} className="text-xs">
               Twitter
             </Button>
-            <Button variant={"ghost"} className="text-xs">
+            <Button variant={"disabled"} className="text-xs">
               LinkedIn
             </Button>
           </div>

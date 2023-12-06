@@ -14,7 +14,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { SignUpButton } from "@clerk/nextjs"
 
-export default function Signup() {
+export default function SignupPage() {
   return (
     <Card>
       <CardHeader className="space-y-1">

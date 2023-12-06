@@ -13,7 +13,7 @@ const CardButton: React.FC<CardButtonProps> = ({ href, children }) => {
       <Card>
         {/* <CardHeader></CardHeader> */}
         <CardContent>
-          <div className="pt-6">
+          <div className="pt-6 h-[4rem] flex items-center justify-center">
             {children}
           </div>
         </CardContent>

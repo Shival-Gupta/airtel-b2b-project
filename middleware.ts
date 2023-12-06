@@ -1,31 +1,30 @@
 import { authMiddleware, redirectToSignIn } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
 
+// const homeUrl = `${process.env.HOME}`;
+
 export default authMiddleware({
   publicRoutes: ["/"],
   afterAuth(auth, req) {
-    if (!auth.userId && !auth.isPublicRoute) {
-      return redirectToSignIn({ returnBackUrl: req.url });
-    }
-
-    if (auth.userId && auth.isPublicRoute) {
-      let path = "" + process.env.ORG;
-
-      if (auth.orgId) {
-        path = `/dashboard/${auth.orgId}`;
+    const orgUrl = `${process.env.ORG}`;
+    const dashboardUrl = `${process.env.DASHBOARD}`;
+    // if user is authenticated
+    if (auth.userId) {
+      // if user doesn't have Organization ID -> OrganizationPage
+      if (!auth.orgId) {
+        const redirectUrl = new URL(orgUrl, req.url);
+        return NextResponse.redirect(redirectUrl);
       }
 
-      const orgSelection = new URL(path, req.url);
-      return NextResponse.redirect(orgSelection);
+      // if user has OrganizationId and is trying to access Public Routes -> DashboardPage
+      if (auth.isPublicRoute) {
+        const redirectUrl = new URL(dashboardUrl, req.url);
+        return NextResponse.redirect(redirectUrl);
+      }
     }
-
-    if (
-      auth.userId &&
-      !auth.orgId &&
-      req.nextUrl.pathname !== "" + process.env.ORG
-    ) {
-      const orgSelection = new URL("" + process.env.ORG, req.url);
-      return NextResponse.redirect(orgSelection);
+    // if user is un-authenticated and trying to access Private Routes -> LoginPage
+    else if (!auth.isPublicRoute) {
+      return redirectToSignIn({ returnBackUrl: req.url });
     }
   },
 });

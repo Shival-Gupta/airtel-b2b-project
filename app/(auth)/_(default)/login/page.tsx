@@ -13,7 +13,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 
-export default function Login() {
+export default function LoginPage() {
   return (
     <Card>
       <CardHeader className="space-y-1">
