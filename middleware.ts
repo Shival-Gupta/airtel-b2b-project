@@ -1,17 +1,14 @@
 import { authMiddleware, redirectToSignIn } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
-
-// const homeUrl = `${process.env.HOME}`;
+import { homeUrl, orgUrl, dashboardUrl } from "./app/routeData";
 
 export default authMiddleware({
-  publicRoutes: ["/"],
+  publicRoutes: [homeUrl],
   afterAuth(auth, req) {
-    const orgUrl = `${process.env.ORG}`;
-    const dashboardUrl = `${process.env.DASHBOARD}`;
     // if user is authenticated
     if (auth.userId) {
       // if user doesn't have Organization ID -> OrganizationPage
-      if (!auth.orgId) {
+      if (!auth.orgId && req.nextUrl.pathname !== orgUrl) {
         const redirectUrl = new URL(orgUrl, req.url);
         return NextResponse.redirect(redirectUrl);
       }

@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { ModeToggle } from "@/components/modeToggle";
 import { ClerkLoaded, ClerkLoading, UserButton, auth } from "@clerk/nextjs";
 import { UserNav } from "../(dashboard)/_components/user-nav";
+import { loginUrl, signupUrl } from "../routeData";
 
 export const Header = () => {
 
@@ -17,10 +18,10 @@ export const Header = () => {
           {!userId ? (
             <>
               <Button variant={"destructive"} size="sm" className="px-6">
-                <Link href={"" + process.env.LOGIN}>Login</Link>
+                <Link href={loginUrl}>Login</Link>
               </Button>
               <Button variant={"secondary"} size="sm" className="px-6">
-                <Link href={"" + process.env.SIGNUP}>Signup</Link>
+                <Link href={signupUrl}>Signup</Link>
               </Button>
               <ModeToggle />
             </>

@@ -22,6 +22,7 @@ import TeamSwitcher from "../_components/team-switcher"
 import CardButton from "../_components/card-button"
 import { accountsButtons, dashboardButtons, paymentButtons } from "./buttonData"
 import { ClerkLoaded, ClerkLoading, OrganizationSwitcher, auth } from "@clerk/nextjs";
+import { dashboardUrl, orgUrl } from "@/app/routeData"
 
 export const metadata: Metadata = {
     title: "B2B Dashboard",
@@ -50,9 +51,9 @@ export default function DashboardPage() {
                         <ClerkLoaded>
                             <OrganizationSwitcher
                                 hidePersonal
-                                afterSelectOrganizationUrl={process.env.DASHBOARD + "/:id"}
-                                afterCreateOrganizationUrl={process.env.DASHBOARD + "/:id"}
-                                afterLeaveOrganizationUrl={process.env.ORG + ""}
+                                afterSelectOrganizationUrl={dashboardUrl}
+                                afterCreateOrganizationUrl={dashboardUrl}
+                                afterLeaveOrganizationUrl={orgUrl}
                             />
                         </ClerkLoaded>
                     </div>

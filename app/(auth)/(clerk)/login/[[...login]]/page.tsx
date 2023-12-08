@@ -1,5 +1,6 @@
+import { orgUrl } from "@/app/routeData";
 import { SignIn } from "@clerk/nextjs";
  
 export default function LoginPage() {
-  return <SignIn />;
+  return <SignIn afterSignInUrl={orgUrl} />;
 }

@@ -71,8 +71,4 @@ body,
     body {
         @apply bg-background text-foreground;
     }
-
-    p {
-        @apply font-semibold text-center pb-2;
-    }
 }

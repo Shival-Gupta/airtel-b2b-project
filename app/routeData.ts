@@ -1,0 +1,5 @@
+export const homeUrl = '/'
+export const orgUrl = '/organization'
+export const dashboardUrl = '/dashboard'
+export const loginUrl='/login'
+export const signupUrl='/signup'
