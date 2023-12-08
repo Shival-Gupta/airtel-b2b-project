@@ -1,0 +1,69 @@
+// schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider     = "postgresql"
+  url          = env("DATABASE_URL")
+  // relationMode = "prisma"
+}
+
+// User model for authentication
+model User {
+  id          String        @id @default(uuid())
+  username    String
+  password    String
+  // Add other user-related fields as needed
+  Dashboard   Dashboard[]
+  Payee       Payee[]
+  Transaction Transaction[]
+}
+
+// Dashboard model to store user dashboard information
+model Dashboard {
+  id               String @id @default(uuid())
+  userId           String
+  name             String
+  companyName      String
+  accountNumber    String
+  availableBalance Float
+  // Add other dashboard-related fields as needed
+
+  // Relation to User model
+  user User @relation(fields: [userId], references: [id])
+}
+
+// Payee model to store payee information
+model Payee {
+  id            String @id @default(uuid())
+  userId        String
+  nickName      String
+  bankName      String
+  accountNumber String
+  ifsc          String
+  // Add other payee-related fields as needed
+
+  // Relation to User model
+  user        User          @relation(fields: [userId], references: [id])
+  Transaction Transaction[]
+}
+
+// Transaction model to store transaction information
+model Transaction {
+  id              String @id @default(uuid())
+  userId          String
+  payeeId         String
+  amount          Float
+  transactionMode String
+  transactionType String
+  remarks         String
+  // Add other transaction-related fields as needed
+
+  // Relation to User and Payee models
+  user  User  @relation(fields: [userId], references: [id])
+  payee Payee @relation(fields: [payeeId], references: [id])
+}
+
+// Other models for additional functionalities can be added as needed
