@@ -19,38 +19,55 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
 import { useToast } from "@/components/ui/use-toast"
 
-import { payeeFormSchema } from "./payee-form-schema";
-import { addPayee } from "./add-payee";
+import { orgFormSchema } from "./org-form-schema";
+import { addOrganization } from "./db-action";
+import { Textarea } from "@/components/ui/textarea";
 
-export const AddPayeeForm = () => {
+export const AddOrganizationForm = () => {
 
   const { toast } = useToast();
 
-  const form = useForm<z.infer<typeof payeeFormSchema>>({
-    resolver: zodResolver(payeeFormSchema),
+  const form = useForm<z.infer<typeof orgFormSchema>>({
+    resolver: zodResolver(orgFormSchema),
     defaultValues: {
       bank_type: "apb",
+      ac_balance: 0,
+      ac_type: "cur",
     },
   });
 
-  async function onSubmit(values: z.infer<typeof payeeFormSchema>) {
+  async function onSubmit(values: z.infer<typeof orgFormSchema>) {
     try {
-      if (await addPayee(values)) {
-        console.log("Successfully added Payee!");
+      const status = await addOrganization(values);
+      if (status === 0) {
         toast({
-          title: "Successfully added Payee!",
+          title: "Successfully added Organization!",
+        })
+      } else if (status === 1) {
+        toast({
+          title: "Error",
+          description: "Organization already exists!",
+        })
+      } else if (status === 2) {
+        toast({
+          title: "Unauthorized",
+          description: "No user logon!",
+        })
+      } else if (status === 3) {
+        toast({
+          title: "Unauthorized",
+          description: "No organization selected!",
         })
       } else {
-        console.error("Error adding payee!")
         toast({
-          title: "Error adding payee!",
-          description: "Already exists",
+          title: "Error",
+          description: "Internal Error!",
         })
       }
     } catch (error) {
-      console.error("Error adding payee:", error);
+      console.error("Error adding org:", error);
       toast({
-        title: "Error adding payee!",
+        title: "Application error!",
         description: "Reload website",
       })
     }
@@ -84,6 +101,20 @@ export const AddPayeeForm = () => {
               </FormItem>
             )}
           />
+
+          {/* Account Balance */}
+          <FormField control={form.control}
+            name="ac_balance"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="text-base">Account Balance</FormLabel>
+                <FormControl>
+                  <Input {...field} type="number"/>
+                </FormControl>
+                <FormDescription></FormDescription>
+                <FormMessage />
+              </FormItem>
+            )} />
         </div>
 
         <div className="grid grid-cols-2 gap-12">
@@ -123,6 +154,7 @@ export const AddPayeeForm = () => {
                         </FormControl>
                       </FormItem>
                       <SelectContent>
+                        <SelectItem value="cur">Current</SelectItem>
                         <SelectItem value="sav">Savings</SelectItem>
                         <SelectItem value="wal">Wallet</SelectItem>
                       </SelectContent>
@@ -162,12 +194,12 @@ export const AddPayeeForm = () => {
               )} />
           </div>
           <div className="grid grid-flow-row gap-4">
-            {/* Payee Name */}
+            {/* Nominee Name */}
             <FormField control={form.control}
-              name="payee_name"
+              name="nominee_name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-base">Payee Name</FormLabel>
+                  <FormLabel className="text-base">Nominee Name</FormLabel>
                   <FormControl>
                     <Input {...field} />
                   </FormControl>
@@ -176,12 +208,12 @@ export const AddPayeeForm = () => {
                 </FormItem>
               )} />
 
-            {/* Payee Nickname */}
+            {/* Organization Email */}
             <FormField control={form.control}
-              name="payee_nickname"
+              name="org_email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-base">Payee Nickname</FormLabel>
+                  <FormLabel className="text-base">Organization Email</FormLabel>
                   <FormControl>
                     <Input {...field} />
                   </FormControl>
@@ -190,26 +222,12 @@ export const AddPayeeForm = () => {
                 </FormItem>
               )} />
 
-            {/* Payee Email */}
+            {/* Organization Mobile */}
             <FormField control={form.control}
-              name="payee_email"
+              name="org_mob_no"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-base">Payee Email</FormLabel>
-                  <FormControl>
-                    <Input {...field} />
-                  </FormControl>
-                  <FormDescription></FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )} />
-
-            {/* Payee Mobile */}
-            <FormField control={form.control}
-              name="payee_mob_no"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="text-base">Payee Mobile</FormLabel>
+                  <FormLabel className="text-base">Organization Mobile</FormLabel>
                   <FormControl>
                     <Input {...field} />
                   </FormControl>
@@ -219,6 +237,20 @@ export const AddPayeeForm = () => {
               )} />
           </div>
         </div>
+
+        {/* Organization Address */}
+        <FormField control={form.control}
+          name="org_address"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel className="text-base">Organization Address</FormLabel>
+              <FormControl>
+                <Textarea {...field} />
+              </FormControl>
+              <FormDescription></FormDescription>
+              <FormMessage />
+            </FormItem>
+          )} />
 
         {/* Proceed Button */}
         <Button type="submit">Proceed</Button>

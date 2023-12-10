@@ -9,52 +9,60 @@ datasource db {
 
 // Represents an individual organization
 model Organization {
-  id                String        @id @default(uuid())
-  org_id            String
-  name              String
-  address           String
-  available_balance Float
-  transactionIds    Int[]
-  Transaction       Transaction[]
+  org_id               String              @id
+  nominee_name         String
+  org_address          String
+  org_email            String
+  org_mob_no           BigInt
+  bank_type            BankTypeEnum
+  bank_ifsc            String
+  ac_type              AcTypeEnum
+  ac_no                String
+  ac_balance           Float
+  transaction_relation Transaction[]
+  payee_relation       PayeeOrganization[]
 }
 
 // Represents an individual payee entity
 model Payee {
-  id             String        @id @default(uuid())
-  bank_type      BankTypeEnum
-  bank_ifsc      String?
-  ac_type        AcTypeEnum
-  ac_no          String
-  payee_name     String
-  payee_nickname String
-  payee_email    String
-  payee_mob_no   String
-  transactionIds Int[]
-  Transaction    Transaction[]
+  payee_id              String              @id @default(uuid())
+  bank_type             BankTypeEnum
+  bank_ifsc             String
+  ac_type               AcTypeEnum
+  ac_no                 String
+  payee_name            String
+  payee_nickname        String
+  payee_email           String
+  payee_mob_no          String
+  transaction_relation  Transaction[]
+  organization_relation PayeeOrganization[]
 
   @@unique([bank_ifsc, ac_no])
 }
 
 // Represents a financial transaction
 model Transaction {
-  id               String        @id @default(uuid())
-  transaction_date DateTime      @default(now())
-  transaction_id   String
+  transaction_id   String       @id @default(uuid())
+  transaction_date DateTime     @default(now())
   description      String
-  dr_cr            DrCrEnum
   amount           Float
   service_charge   Float
   gst              Float
-  balance          Float
-  payee            Payee?        @relation(fields: [payeeId], references: [id])
-  payeeId          String?
-  organization     Organization? @relation(fields: [organizationId], references: [id])
-  organizationId   String?
+  updated_balance  Float
+  payer            Organization @relation(fields: [payer_id], references: [org_id])
+  payer_id         String
+  payee            Payee        @relation(fields: [payee_id], references: [payee_id])
+  payee_id         String
 }
 
-enum DrCrEnum {
-  Dr
-  Cr
+// Represents the relationship between Organization and Payee
+model PayeeOrganization {
+  org      Organization @relation(fields: [org_id], references: [org_id])
+  org_id   String
+  payee    Payee        @relation(fields: [payee_id], references: [payee_id])
+  payee_id String
+
+  @@unique([org_id, payee_id], name: "PayeeOrganizationRelation")
 }
 
 enum BankTypeEnum {
@@ -64,5 +72,6 @@ enum BankTypeEnum {
 
 enum AcTypeEnum {
   sav
+  cur
   wal
 }

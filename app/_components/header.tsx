@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { ModeToggle } from "@/components/modeToggle";
 import { ClerkLoaded, ClerkLoading, UserButton, auth } from "@clerk/nextjs";
 import { UserNav } from "../(dashboard)/_components/user-nav";
-import { loginUrl, signupUrl } from "../routeData";
+import { homeUrl, loginUrl, signupUrl } from "../routeData";
 
 export const Header = () => {
 
@@ -32,7 +32,7 @@ export const Header = () => {
                 <UserNav />
               </ClerkLoading>
               <ClerkLoaded>
-                <UserButton afterSignOutUrl="/" />
+                <UserButton afterSignOutUrl={homeUrl} />
               </ClerkLoaded>
             </>
           )}

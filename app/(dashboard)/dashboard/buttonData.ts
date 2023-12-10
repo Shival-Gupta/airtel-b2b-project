@@ -1,6 +1,6 @@
 const paymentLink = "/payment";
 const addPayeeLink = "/add-payee";
-const payeeLink = "/payee";
+const payeeLink = "/manage-payee";
 const transactionsLink = "/transactions";
 const statementsLink = "/statements";
 
