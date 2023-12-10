@@ -1,69 +1,68 @@
-// schema.prisma
-
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider     = "postgresql"
-  url          = env("DATABASE_URL")
-  // relationMode = "prisma"
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
-// User model for authentication
-model User {
-  id          String        @id @default(uuid())
-  username    String
-  password    String
-  // Add other user-related fields as needed
-  Dashboard   Dashboard[]
-  Payee       Payee[]
-  Transaction Transaction[]
+// Represents an individual organization
+model Organization {
+  id                String        @id @default(uuid())
+  org_id            String
+  name              String
+  address           String
+  available_balance Float
+  transactionIds    Int[]
+  Transaction       Transaction[]
 }
 
-// Dashboard model to store user dashboard information
-model Dashboard {
-  id               String @id @default(uuid())
-  userId           String
-  name             String
-  companyName      String
-  accountNumber    String
-  availableBalance Float
-  // Add other dashboard-related fields as needed
-
-  // Relation to User model
-  user User @relation(fields: [userId], references: [id])
-}
-
-// Payee model to store payee information
+// Represents an individual payee entity
 model Payee {
-  id            String @id @default(uuid())
-  userId        String
-  nickName      String
-  bankName      String
-  accountNumber String
-  ifsc          String
-  // Add other payee-related fields as needed
+  id             String        @id @default(uuid())
+  bank_type      BankTypeEnum
+  bank_ifsc      String?
+  ac_type        AcTypeEnum
+  ac_no          String
+  payee_name     String
+  payee_nickname String
+  payee_email    String
+  payee_mob_no   String
+  transactionIds Int[]
+  Transaction    Transaction[]
 
-  // Relation to User model
-  user        User          @relation(fields: [userId], references: [id])
-  Transaction Transaction[]
+  @@unique([bank_ifsc, ac_no])
 }
 
-// Transaction model to store transaction information
+// Represents a financial transaction
 model Transaction {
-  id              String @id @default(uuid())
-  userId          String
-  payeeId         String
-  amount          Float
-  transactionMode String
-  transactionType String
-  remarks         String
-  // Add other transaction-related fields as needed
-
-  // Relation to User and Payee models
-  user  User  @relation(fields: [userId], references: [id])
-  payee Payee @relation(fields: [payeeId], references: [id])
+  id               String        @id @default(uuid())
+  transaction_date DateTime      @default(now())
+  transaction_id   String
+  description      String
+  dr_cr            DrCrEnum
+  amount           Float
+  service_charge   Float
+  gst              Float
+  balance          Float
+  payee            Payee?        @relation(fields: [payeeId], references: [id])
+  payeeId          String?
+  organization     Organization? @relation(fields: [organizationId], references: [id])
+  organizationId   String?
 }
 
-// Other models for additional functionalities can be added as needed
+enum DrCrEnum {
+  Dr
+  Cr
+}
+
+enum BankTypeEnum {
+  apb
+  oth
+}
+
+enum AcTypeEnum {
+  sav
+  wal
+}

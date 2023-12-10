@@ -1,4 +1,9 @@
-"use client"
+"use client";
+
+import * as z from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -11,54 +16,44 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
-import { useForm } from "react-hook-form";
-import * as z from "zod";
+import { useToast } from "@/components/ui/use-toast"
 
-const formSchema = z.object({
-  bank_name: z.enum(["apb", "other"], {
-    required_error: "You need to select a bank",
-  }),
-  bank_ifsc: z.string().length(11, {
-    message: "IFSC Code is of 11 digits",
-  }).regex(/^[A-Z]{4}0[A-Z0-9]{6}$/, {
-    message: "Invalid IFSC Code",
-  }),
-  ac_type: z.enum(["savings", "wallet"], {
-    required_error: "You need to select an account type",
-  }),
-  ac_no: z.string().refine((value) => !isNaN(Number(value)), {
-    message: "Account number must be a valid number",
-  }).transform((value) => Number(value)), // Convert string to number
-  conf_ac_no: z.string().refine((value) => !isNaN(Number(value)), {
-    message: "Account number must be a valid number",
-  }).transform((value) => Number(value)), // Convert string to number
-  payee_name: z.string().min(2, {
-    message: "Payee name must be at least 2 characters",
-  }),
-  payee_nickname: z.string().min(2, {
-    message: "Payee nickname must be at least 2 characters",
-  }),
-  payee_email: z.string().email({ message: "Invalid email address" }),
-  payee_mob_no: z.string().min(10, {
-    message: "Payee mobile number must be 10 digits",
-  }),
-}).refine((data) => data.ac_no === data.conf_ac_no, {
-  message: "Account Numbers didn't match",
-  path: ["conf_ac_no"],
-});
+import { payeeFormSchema } from "./payee-form-schema";
+import { addPayee } from "./add-payee";
 
-export function AddPayeeForm() {
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+export const AddPayeeForm = () => {
+
+  const { toast } = useToast();
+
+  const form = useForm<z.infer<typeof payeeFormSchema>>({
+    resolver: zodResolver(payeeFormSchema),
     defaultValues: {
-      bank_name: "apb",
+      bank_type: "apb",
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+  async function onSubmit(values: z.infer<typeof payeeFormSchema>) {
+    try {
+      if (await addPayee(values)) {
+        console.log("Successfully added Payee!");
+        toast({
+          title: "Successfully added Payee!",
+        })
+      } else {
+        console.error("Error adding payee!")
+        toast({
+          title: "Error adding payee!",
+          description: "Already exists",
+        })
+      }
+    } catch (error) {
+      console.error("Error adding payee:", error);
+      toast({
+        title: "Error adding payee!",
+        description: "Reload website",
+      })
+    }
   }
 
   return (
@@ -67,13 +62,13 @@ export function AddPayeeForm() {
         <div className="grid grid-cols-2 gap-4">
           <FormField
             control={form.control}
-            name="bank_name"
+            name="bank_type"
             render={({ field }) => (
               <FormItem className="space-y-3">
                 <FormLabel className="text-base">Select Bank</FormLabel>
                 <FormControl>
                   <RadioGroup onValueChange={field.onChange} defaultValue={field.value} className="flex flex-col space-y-1">
-                    {["apb", "other"].map((value) => (
+                    {["apb", "oth"].map((value) => (
                       <FormItem key={value} className="flex items-center space-x-3 space-y-0">
                         <FormControl>
                           <RadioGroupItem value={value} />
@@ -94,7 +89,7 @@ export function AddPayeeForm() {
         <div className="grid grid-cols-2 gap-12">
           <div className="grid grid-flow-row gap-4">
             {/* IFSC Code */}
-            {form.watch("bank_name") === "other" && (
+            {form.watch("bank_type") === "oth" && (
               <FormField control={form.control}
                 name="bank_ifsc"
                 render={({ field }) => (
@@ -128,8 +123,8 @@ export function AddPayeeForm() {
                         </FormControl>
                       </FormItem>
                       <SelectContent>
-                        <SelectItem value="savings">Savings</SelectItem>
-                        <SelectItem value="wallet">Wallet</SelectItem>
+                        <SelectItem value="sav">Savings</SelectItem>
+                        <SelectItem value="wal">Wallet</SelectItem>
                       </SelectContent>
                     </Select>
                   </FormControl >

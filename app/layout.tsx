@@ -8,6 +8,7 @@ import { ThemeProvider } from "@/components/providers/theme-provider";
 
 import { Header } from "@/app/_components/header";
 import { Footer } from "@/app/_components/footer";
+import { Toaster } from "@/components/ui/toaster";
 
 const inter = Inter({ subsets: ["latin"] });
 const font = inter;
@@ -26,22 +27,22 @@ export default function RootLayout({
 
   return (
     <ClerkProvider
-    appearance={{
-      baseTheme: dark,
-    //   variables: {
-    //     colorPrimary: 'var(--primary)',
-    //     colorDanger: 'var(--danger)',
-    //     colorSuccess: 'var(--success)',
-    //     colorWarning: 'var(--destructive)',
-    //     colorAlphaShade: 'var(--accent)',
-    //     colorTextOnPrimaryBackground: 'var(--primary)',
-    //     colorTextSecondary: 'var(--secondary)',
-    //     colorBackground: 'var(--background)',
-    //     colorInputText: 'var(--foreground)',
-    //     colorInputBackground: 'var(--primary-foreground)',
-    //     borderRadius: 'var(--radius)',
-    //   }
-    }}
+      appearance={{
+        baseTheme: dark,
+        //   variables: {
+        //     colorPrimary: 'var(--primary)',
+        //     colorDanger: 'var(--danger)',
+        //     colorSuccess: 'var(--success)',
+        //     colorWarning: 'var(--destructive)',
+        //     colorAlphaShade: 'var(--accent)',
+        //     colorTextOnPrimaryBackground: 'var(--primary)',
+        //     colorTextSecondary: 'var(--secondary)',
+        //     colorBackground: 'var(--background)',
+        //     colorInputText: 'var(--foreground)',
+        //     colorInputBackground: 'var(--primary-foreground)',
+        //     borderRadius: 'var(--radius)',
+        //   }
+      }}
     >
       <html lang="en" suppressHydrationWarning>
         <body className={font.className}>
@@ -50,7 +51,7 @@ export default function RootLayout({
             defaultTheme='light'
             enableSystem
             storageKey='theme'
-            // disableTransitionOnChange
+          // disableTransitionOnChange
           >
             <div className="h-full">
               <Header />
@@ -59,6 +60,7 @@ export default function RootLayout({
                   {children}
                 </div>
               </main>
+              <Toaster />
               <Footer />
             </div>
           </ThemeProvider>
