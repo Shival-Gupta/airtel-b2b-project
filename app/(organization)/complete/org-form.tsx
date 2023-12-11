@@ -20,7 +20,7 @@ import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@
 import { useToast } from "@/components/ui/use-toast"
 
 import { orgFormSchema } from "./org-form-schema";
-import { addOrganization } from "./db-action";
+import { addOrganization } from "./add-org";
 import { Textarea } from "@/components/ui/textarea";
 
 export const AddOrganizationForm = () => {

@@ -20,7 +20,7 @@ import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@
 import { useToast } from "@/components/ui/use-toast"
 
 import { payeeFormSchema } from "./payee-form-schema";
-import { addPayee } from "./db-actions";
+import { addPayee } from "./add-payee";
 import { loginUrl } from "@/app/routeData";
 import { NextResponse } from "next/server";
 
@@ -51,6 +51,18 @@ export const AddPayeeForm = () => {
         toast({
           title: "Unauthorized",
           description: "No user logon!",
+        })
+        return NextResponse.redirect(new URL(loginUrl, "/add-payee"));
+      } else if (status === 3) {
+        toast({
+          title: "Unauthorized",
+          description: "No organization selected!",
+        })
+        return NextResponse.redirect(new URL(loginUrl, "/add-payee"));
+      } else if (status === 4) {
+        toast({
+          title: "Error",
+          description: "Check IFSC Code!",
         })
         return NextResponse.redirect(new URL(loginUrl, "/add-payee"));
       } else {

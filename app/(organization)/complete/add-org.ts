@@ -19,7 +19,7 @@ export async function addOrganization(
   }
   try {
     console.log(orgId, values);
-    if (orgId && values.bank_ifsc) {
+    if (values.bank_ifsc) {
       await db.organization.create({
         data: {
           org_id: orgId,
