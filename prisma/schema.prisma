@@ -37,7 +37,7 @@ model Payee {
   transaction_relation  Transaction[]
   organization_relation PayeeOrganization[]
 
-  @@unique([bank_ifsc, ac_no])
+  @@unique([bank_ifsc, ac_no, ac_type])
 }
 
 // Represents a financial transaction

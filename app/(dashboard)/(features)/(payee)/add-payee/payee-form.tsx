@@ -37,7 +37,9 @@ export const AddPayeeForm = () => {
 
   async function onSubmit(values: z.infer<typeof payeeFormSchema>) {
     try {
-      const status = await addPayee(values);
+      let status = -1
+      if (values.bank_ifsc)
+        status = await addPayee(values);
       if (status === 0) {
         toast({
           title: "Successfully added Payee!",
@@ -67,8 +69,8 @@ export const AddPayeeForm = () => {
         return NextResponse.redirect(new URL(loginUrl, "/add-payee"));
       } else {
         toast({
-          title: "Error",
-          description: "Internal Error!",
+          title: "Server error!",
+          description: "Try again later",
         })
       }
     } catch (error) {

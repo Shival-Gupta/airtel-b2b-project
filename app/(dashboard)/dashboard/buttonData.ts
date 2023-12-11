@@ -1,24 +1,20 @@
-const paymentLink = "/payment";
-const addPayeeLink = "/add-payee";
-const payeeLink = "/manage-payee";
-const transactionsLink = "/transactions";
-const statementsLink = "/statements";
+import { paymentUrl, addPayeeUrl, transactionsUrl, statementsUrl, managePayeeUrl } from "@/app/routeData";
 
 export const dashboardButtons = [
-  { text: "Initiate Payment", href: paymentLink },
-  { text: "Add Payee", href: addPayeeLink },
-  { text: "Manage Payee", href: payeeLink },
-  { text: "Recent Transactions", href: transactionsLink },
-  { text: "Detailed Statements", href: statementsLink },
+  { text: "Initiate Payment", href: paymentUrl },
+  { text: "Add Payee", href: addPayeeUrl },
+  { text: "Manage Payee", href: managePayeeUrl },
+  { text: "Recent Transactions", href: transactionsUrl },
+  { text: "Detailed Statements", href: statementsUrl },
 ];
 
 export const paymentButtons = [
-  { text: "Initiate Payment", href: paymentLink },
-  { text: "Add Payee", href: addPayeeLink },
-  { text: "Manage Payee", href: payeeLink },
+  { text: "Initiate Payment", href: paymentUrl },
+  { text: "Add Payee", href: addPayeeUrl },
+  { text: "Manage Payee", href: managePayeeUrl },
 ];
 
 export const accountsButtons = [
-  { text: "Recent Transactions", href: transactionsLink },
-  { text: "Detailed Statements", href: statementsLink },
+  { text: "Recent Transactions", href: transactionsUrl },
+  { text: "Detailed Statements", href: statementsUrl },
 ];
