@@ -9,7 +9,7 @@ export const payeeFormSchema = z.object({
     }).regex(/^[A-Z]{4}0[A-Z0-9]{6}$/, {
       message: "Invalid IFSC Code",
     }).optional(),
-    ac_type: z.enum(["sav", "wal"], {
+    ac_type: z.enum(["sav", "wal", "cur"], {
       required_error: "You need to select an account type",
     }),
     ac_no: z.string().min(6, {

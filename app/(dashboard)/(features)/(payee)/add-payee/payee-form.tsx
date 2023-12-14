@@ -21,8 +21,6 @@ import { useToast } from "@/components/ui/use-toast"
 
 import { payeeFormSchema } from "./payee-form-schema";
 import { addPayee } from "./add-payee";
-import { loginUrl } from "@/app/routeData";
-import { NextResponse } from "next/server";
 
 export const AddPayeeForm = () => {
 
@@ -37,48 +35,29 @@ export const AddPayeeForm = () => {
 
   async function onSubmit(values: z.infer<typeof payeeFormSchema>) {
     try {
-      let status = -1
-      if (values.bank_ifsc)
-        status = await addPayee(values);
-      if (status === 0) {
-        toast({
-          title: "Successfully added Payee!",
-        })
-      } else if (status === 1) {
-        toast({
-          title: "Error",
-          description: "Payee already exists!",
-        })
-      } else if (status === 2) {
-        toast({
-          title: "Unauthorized",
-          description: "No user logon!",
-        })
-        return NextResponse.redirect(new URL(loginUrl, "/add-payee"));
-      } else if (status === 3) {
-        toast({
-          title: "Unauthorized",
-          description: "No organization selected!",
-        })
-        return NextResponse.redirect(new URL(loginUrl, "/add-payee"));
-      } else if (status === 4) {
-        toast({
-          title: "Error",
-          description: "Check IFSC Code!",
-        })
-        return NextResponse.redirect(new URL(loginUrl, "/add-payee"));
-      } else {
-        toast({
-          title: "Server error!",
-          description: "Try again later",
-        })
+      if (values.bank_ifsc) {
+        const status = await addPayee(values)
+        if (status) {
+          if (status === true) {
+            toast({
+              title: "Successfully added Payee!",
+            })
+          }
+          else {
+            throw status;
+          }
+        } else {
+          throw Object.assign(new Error("No response from server"), { code: 500 });
+        }
       }
-    } catch (error) {
-      console.error("Error adding payee:", error);
+      else {
+        throw Object.assign(new Error("IFSC code is null"), { code: 400 });
+      }
+    } catch (error: any) {
       toast({
-        title: "Application error!",
-        description: "Reload website",
-      })
+        title: `Error ${error.code}`,
+        description: error.message,
+      });
     }
   }
 
@@ -150,6 +129,7 @@ export const AddPayeeForm = () => {
                       </FormItem>
                       <SelectContent>
                         <SelectItem value="sav">Savings</SelectItem>
+                        <SelectItem value="cur">Current</SelectItem>
                         <SelectItem value="wal">Wallet</SelectItem>
                       </SelectContent>
                     </Select>

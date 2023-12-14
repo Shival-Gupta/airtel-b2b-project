@@ -22,7 +22,11 @@ async function createPayee(tx: any, values: z.infer<typeof payeeFormSchema>) {
     },
   });
 }
-async function createPayeeOrganization(tx: any, org_Id: string, payeeData: any) {
+async function createPayeeOrganization(
+  tx: any,
+  org_Id: string,
+  payeeData: any
+) {
   return tx.payeeOrganization.create({
     data: {
       org_id: org_Id,
@@ -40,24 +44,20 @@ async function fetchExistingPayee(values: z.infer<typeof payeeFormSchema>) {
 }
 export async function addPayee(
   values: z.infer<typeof payeeFormSchema>
-): Promise<number> {
+): Promise<boolean | Object | undefined> {
   const { userId, orgId } = auth();
-  let errorCode = -1;
 
   try {
     if (!userId) {
-      errorCode = 2; // no user logon
-      throw new Error("No user logon");
+      throw Object.assign(new Error("No user logon"), { code: 401 });
     }
 
     if (!orgId) {
-      errorCode = 3; // no organization selected
-      throw new Error("No organization selected");
+      throw Object.assign(new Error("No organization selected"), { code: 403 });
     }
 
     if (!values.bank_ifsc) {
-      errorCode = 4; // ifsc code null
-      throw new Error("IFSC code is null");
+      throw Object.assign(new Error("IFSC code is null"), { code: 400 });
     }
 
     await db.$transaction(async (tx) => {
@@ -71,10 +71,20 @@ export async function addPayee(
     });
 
     revalidatePath(managePayeeUrl);
-    return 0; // successful
+    return true;
   } catch (error: any) {
-    if (error.code === "P2002") return 1;
-    console.error("server error:", error);
-    return errorCode; // unsuccessful
+    console.error(
+      `\n[Server] Error ${error.code}: Unable to add payee\n ${error.message}\n`
+    );
+    if (error.code) {
+      if (error.code === "P2002")
+        return Object.assign(
+          { message: "Payee already exists" },
+          { code: error.code }
+        );
+      return Object.assign({ message: error.message }, { code: error.code });
+    } else {
+      return Object.assign({ message: error.message }, { code: 500 });
+    }
   }
 }

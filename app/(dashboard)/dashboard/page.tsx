@@ -1,4 +1,3 @@
-"useClient"
 import { Metadata } from "next"
 
 import {

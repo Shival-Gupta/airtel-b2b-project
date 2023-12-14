@@ -13,6 +13,8 @@ import { Toaster } from "@/components/ui/toaster";
 const inter = Inter({ subsets: ["latin"] });
 const font = inter;
 
+export const revalidate = 900   // revalidate pages every 15 min
+
 export const metadata = {
   title: siteConfig.title,
   description: siteConfig.description,
