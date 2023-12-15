@@ -6,9 +6,10 @@ import { Button } from "@/components/ui/button";
 import { UserRoundPlus } from "lucide-react";
 import { addPayeeUrl } from "@/app/routeData";
 import Link from "next/link";
+import { Skeleton } from "@/components/ui/skeleton";
 
-async function getData(): Promise<DataType[]> {
-  return await getPayeeList();
+async function getData(): Promise<DataType[] | undefined> {
+  return await getPayeeList()
 }
 
 export default async function ManagePayeePage() {
@@ -30,8 +31,11 @@ export default async function ManagePayeePage() {
         </Button>
       </div>
       <Separator />
-
-      <DataTable columns={columns} data={data} />
+      {data ? (
+        <DataTable columns={columns} data={data} />
+      ) : (
+        <Skeleton className="flex h-96 justify-center items-center">Loading...</Skeleton>
+      )}
     </div>
   )
 }

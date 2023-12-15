@@ -10,5 +10,6 @@ export const dashboardUrl = '/dashboard'
 export const addPayeeUrl = '/add-payee'
 export const managePayeeUrl = '/manage-payee'
 export const paymentUrl = "/payment";
+export const payPayeeUrl = "/payment/pay";
 export const transactionsUrl = "/transactions";
 export const statementsUrl = "/statements";

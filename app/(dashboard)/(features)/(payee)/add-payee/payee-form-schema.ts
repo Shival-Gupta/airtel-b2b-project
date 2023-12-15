@@ -5,7 +5,7 @@ export const payeeFormSchema = z.object({
       required_error: "You need to select a bank",
     }),
     bank_ifsc: z.string().length(11, {
-      message: "IFSC Code is of 11 digits",
+      message: "IFSC Code must be 11 digits",
     }).regex(/^[A-Z]{4}0[A-Z0-9]{6}$/, {
       message: "Invalid IFSC Code",
     }).optional(),

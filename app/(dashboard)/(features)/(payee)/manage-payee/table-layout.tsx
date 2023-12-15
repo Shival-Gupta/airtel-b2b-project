@@ -19,6 +19,8 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
 import { deletePayee } from "./delete-payee"
+import Link from "next/link"
+import { payPayeeUrl, paymentUrl } from "@/app/routeData"
 
 
 export type DataType = Payee
@@ -120,12 +122,15 @@ export const columns: ColumnDef<DataType>[] = [
       const { toast } = useToast();
       return (
         <div className="flex justify-center align-middle">
-          <Button variant="ghost" className="h-8 w-8 p-0 hover:text-green-600">
-            <span className="sr-only">Initiate Payment</span>
-            <BadgeIndianRupee className="h-5 w-5" />
+          {/* Initiate Payment */}
+          <Button variant="ghost" className="h-8 w-8 p-0 hover:text-green-600" asChild>
+            <Link href={{ pathname: `${payPayeeUrl}`, query: { id: rowData.payee_id } }}>
+              <span className="sr-only">Initiate Payment</span>
+              <BadgeIndianRupee className="h-5 w-5" />
+            </Link>
           </Button>
 
-
+          {/* Remove Payee */}
           <AlertDialog>
             <AlertDialogTrigger asChild>
               <Button variant="ghost" className="h-8 w-8 p-0 hover:text-primary">
@@ -146,13 +151,13 @@ export const columns: ColumnDef<DataType>[] = [
                   try {
                     const status = await deletePayee(row.getValue("select"));
                     console.log(status)
-                    if(status){
+                    if (status) {
                       toast({
                         title: "Successfull",
                         description: "Payee removed"
                       })
                     }
-                    else{
+                    else {
                       toast({
                         title: "Error",
                         description: "Payee not removed!"
@@ -173,9 +178,7 @@ export const columns: ColumnDef<DataType>[] = [
             </AlertDialogContent>
           </AlertDialog>
 
-
-
-
+          {/* More Actions */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" className="h-8 w-8 p-0">

@@ -36,7 +36,8 @@ export async function getPayeeList() {
     revalidatePath(managePayeeUrl);
     return payeeData;
   } catch (error: any) {
-    if (error.code === "P2002") throw new Error("Record already exists");
-    throw error;
+    console.log("[Server] error", error.code, ": view-payee");
+    console.log(error.message);
+    // throw error;
   }
 }
