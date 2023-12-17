@@ -31,6 +31,7 @@ async function createPayeeOrganization(
     data: {
       org_id: org_Id,
       payee_id: payeeData.payee_id,
+      payee_nickname: payeeData.payee_nickname,
     },
   });
 }
@@ -74,7 +75,7 @@ export async function addPayee(
     return true;
   } catch (error: any) {
     console.error(
-      `\n[Server] Error ${error.code}: Unable to add payee\n ${error.message}\n`
+      `\n[Server] Error ${error.code}: Unable to add payee\n ${error.message}`
     );
     if (error.code) {
       if (error.code === "P2002")

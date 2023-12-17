@@ -20,7 +20,7 @@ import {
 } from "@/components/ui/alert-dialog"
 import { deletePayee } from "./delete-payee"
 import Link from "next/link"
-import { payPayeeUrl, paymentUrl } from "@/app/routeData"
+import { payPayeeUrl } from "@/app/routeData"
 
 
 export type DataType = Payee

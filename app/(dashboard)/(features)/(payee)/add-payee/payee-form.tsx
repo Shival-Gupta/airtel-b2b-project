@@ -191,7 +191,7 @@ export const AddPayeeForm = () => {
                   <FormControl>
                     <Input {...field} />
                   </FormControl>
-                  <FormDescription></FormDescription>
+                  <FormDescription>Nickname should be unique</FormDescription>
                   <FormMessage />
                 </FormItem>
               )} />

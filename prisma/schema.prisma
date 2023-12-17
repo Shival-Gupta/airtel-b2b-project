@@ -33,7 +33,7 @@ model Payee {
   payee_name            String
   payee_nickname        String
   payee_email           String
-  payee_mob_no          String
+  payee_mob_no          BigInt
   transaction_relation  Transaction[]
   organization_relation PayeeOrganization[]
 
@@ -42,27 +42,31 @@ model Payee {
 
 // Represents a financial transaction
 model Transaction {
-  transaction_id   String       @id @default(uuid())
-  transaction_date DateTime     @default(now())
-  description      String
-  amount           Float
-  service_charge   Float
-  gst              Float
-  updated_balance  Float
-  payer            Organization @relation(fields: [payer_id], references: [org_id])
-  payer_id         String
-  payee            Payee        @relation(fields: [payee_id], references: [payee_id])
-  payee_id         String
+  tran_id         String       @id @default(uuid())
+  tran_date       DateTime     @default(now())
+  tran_mode       TranMode
+  category        TranCategory
+  remarks         String?
+  amount          Float
+  service_charge  Float
+  gst             Float
+  updated_balance Float
+  payer           Organization @relation(fields: [payer_id], references: [org_id])
+  payer_id        String
+  payee           Payee        @relation(fields: [payee_id], references: [payee_id])
+  payee_id        String
 }
 
 // Represents the relationship between Organization and Payee
 model PayeeOrganization {
-  org      Organization @relation(fields: [org_id], references: [org_id])
-  org_id   String
-  payee    Payee        @relation(fields: [payee_id], references: [payee_id])
-  payee_id String
+  org            Organization @relation(fields: [org_id], references: [org_id])
+  org_id         String
+  payee          Payee        @relation(fields: [payee_id], references: [payee_id])
+  payee_id       String
+  payee_nickname String       @map("payee_nickname")
 
   @@unique([org_id, payee_id], name: "PayeeOrganizationRelation")
+  @@unique([org_id, payee_nickname], name: "PayeeNicknameOrgRelation")
 }
 
 enum BankTypeEnum {
@@ -74,4 +78,17 @@ enum AcTypeEnum {
   sav
   cur
   wal
+}
+
+enum TranMode {
+  IMPS
+  NEFT
+}
+
+enum TranCategory {
+  VEN
+  SAL
+  INC
+  RBT
+  OTH
 }

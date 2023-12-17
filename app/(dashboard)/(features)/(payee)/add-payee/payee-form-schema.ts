@@ -1,14 +1,19 @@
 import { z } from "zod";
 
-export const payeeFormSchema = z.object({
+export const payeeFormSchema = z
+  .object({
     bank_type: z.enum(["apb", "oth"], {
       required_error: "You need to select a bank",
     }),
-    bank_ifsc: z.string().length(11, {
-      message: "IFSC Code must be 11 digits",
-    }).regex(/^[A-Z]{4}0[A-Z0-9]{6}$/, {
-      message: "Invalid IFSC Code",
-    }).optional(),
+    bank_ifsc: z
+      .string()
+      .length(11, {
+        message: "IFSC Code must be 11 digits",
+      })
+      .regex(/^[A-Z]{4}0[A-Z0-9]{6}$/, {
+        message: "Invalid IFSC Code",
+      })
+      .optional(),
     ac_type: z.enum(["sav", "wal", "cur"], {
       required_error: "You need to select an account type",
     }),
@@ -25,22 +30,33 @@ export const payeeFormSchema = z.object({
       message: "Payee nickname must be at least 2 characters",
     }),
     payee_email: z.string().email({ message: "Invalid email address" }),
-    payee_mob_no: z.string().length(10, {
-      message: "Payee mobile number must be 10 digits",
-    })
-  }).refine((data) => data.conf_ac_no === data.ac_no, {
+    payee_mob_no: z
+      .string()
+      .transform((value) => parseInt(value, 10))
+      .refine((value) => Number.isInteger(value), {
+        message: "Not a valid number",
+      })
+      .refine((value) => value.toString().length === 10, {
+        message: "Mobile number must be 10 digits",
+      }),
+  })
+  .refine((data) => data.conf_ac_no === data.ac_no, {
     message: "Account Numbers didn't match",
     path: ["conf_ac_no"],
-  }).refine((data) => {
-    if (data.bank_type === "apb") {
-      data.bank_ifsc = "AIRP0000001";
+  })
+  .refine(
+    (data) => {
+      if (data.bank_type === "apb") {
+        data.bank_ifsc = "AIRP0000001";
+      }
+      return true;
+    },
+    {
+      message: "Setting IFSC Code for APB type",
+      path: ["bank_ifsc"],
     }
-    return true;
-  }, {
-    message: "Setting IFSC Code for APB type",
-    path: ["bank_ifsc"],
-  }).refine((data) => data.bank_type !== "oth" || data.bank_ifsc !== undefined, {
+  )
+  .refine((data) => data.bank_type !== "oth" || data.bank_ifsc !== undefined, {
     message: "IFSC Code is required",
     path: ["bank_ifsc"],
   });
-  

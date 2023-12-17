@@ -19,7 +19,7 @@ import { RecentSales } from "../_components/recent-sales"
 import TeamSwitcher from "../_components/team-switcher"
 import CardButton from "../_components/card-button"
 import { accountsButtons, dashboardButtons, paymentButtons } from "./buttonData"
-import { ClerkLoaded, ClerkLoading, OrganizationSwitcher, auth } from "@clerk/nextjs";
+import { ClerkLoaded, ClerkLoading, OrganizationSwitcher } from "@clerk/nextjs";
 import { dashboardUrl, orgCompleteUrl, orgUrl } from "@/app/routeData"
 
 export const metadata: Metadata = {
@@ -28,7 +28,6 @@ export const metadata: Metadata = {
 }
 
 export default function DashboardPage() {
-    const { userId, orgId } = auth();
     return (
         <>
             {/* Tabs */}
