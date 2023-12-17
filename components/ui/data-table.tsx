@@ -56,10 +56,10 @@ export function DataTable<TData, TValue>({
       <div className="flex items-center pb-4">
         <Input
           placeholder="Search..."
-          value={(table.getColumn("payee_email")?.getFilterValue() as string) ?? ""}
-          onChange={(event) =>
-            table.getColumn("payee_email")?.setFilterValue(event.target.value)
-          }
+          // value={(table.getColumn("payee_email")?.getFilterValue() as string) ?? ""}
+          // onChange={(event) =>
+          //   table.getColumn("payee_email")?.setFilterValue(event.target.value)
+          // }
           className="max-w-sm"
         />
         <DropdownMenu>
