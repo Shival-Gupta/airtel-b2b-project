@@ -150,24 +150,24 @@ export const columns: ColumnDef<DataType>[] = [
                     const status = await deletePayee(row.getValue("select"));
                     console.log(status)
                     if (status) {
-                      toast({
-                        title: "Successfull",
-                        description: "Payee removed"
-                      })
+                      // toast({
+                      //   title: "Successfull",
+                      //   description: "Payee removed"
+                      // })
                     }
                     else {
-                      toast({
-                        title: "Error",
-                        description: "Payee not removed!"
-                      })
+                      // toast({
+                      //   title: "Error",
+                      //   description: "Payee not removed!"
+                      // })
                     }
                   }
                   catch (error: any) {
                     console.log(error);
-                    toast({
-                      title: "Server Error",
-                      description: "Check console log!"
-                    })
+                    // toast({
+                    //   title: "Server Error",
+                    //   description: "Check console log!"
+                    // })
                   }
                 }}>
                   Continue
@@ -189,9 +189,9 @@ export const columns: ColumnDef<DataType>[] = [
               <DropdownMenuItem
                 onClick={() => {
                   navigator.clipboard.writeText(`Name: ${rowData.payee_name} \nAccount number: ${rowData.ac_no} \nIFSC: ${rowData.bank_ifsc} \n`)
-                  toast({
-                    title: "Copied",
-                  })
+                  // toast({
+                  //   title: "Copied",
+                  // })
                 }}
               >
                 <Copy className="mr-2 h-4 w-4" /> Copy Details

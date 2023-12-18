@@ -110,9 +110,9 @@ export const columns: ColumnDef<DataType>[] = [
               <DropdownMenuItem
                 onClick={() => {
                   navigator.clipboard.writeText(`Transaction ID: ${rowData.tran_id} \nTransaction Date: ${rowData.tran_date} \nMode: ${rowData.tran_mode} \nCategory: ${rowData.category} \nAmount: ${rowData.amount}`)
-                  toast({
-                    title: "Copied",
-                  })
+                  // toast({
+                  //   title: "Copied",
+                  // })
                 }}
               >
                 <Copy className="mr-2 h-4 w-4" /> Copy Details

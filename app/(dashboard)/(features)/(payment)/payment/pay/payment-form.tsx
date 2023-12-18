@@ -41,18 +41,15 @@ export const PaymentForm = ({ data }: { data: Payee }) => {
   async function onSubmit(values: z.infer<typeof paymentFormSchema>) {
     try {
       const status = await initPayment(values, data)
-      if (status) {
-        if(status.tran_id){
-          toast({
-            title: "Transaction Succesfull",
-            description: <div>Paid <b>{status.amount}</b> to <b>{values.payee_name}</b><br/><br/><p className="text-xs">Transaction Id: {status.tran_id}</p></div>,
-          })
-        }
-        else{
-          throw status
-        }
-      } else {
-        throw Object.assign(new Error("No response from server"), { code: 500 });
+      if (!status) throw Object.assign(new Error("No response from server"), { code: 500 });
+      if ('tran_id' in status) {
+        toast({
+          title: "Transaction Succesfull",
+          description: <div>Paid <b>{status.amount}</b> to <b>{values.payee_name}</b><br /><br /><p className="text-xs">Transaction Id: {status.tran_id}</p></div>,
+        })
+      }
+      else {
+        throw status
       }
     } catch (error: any) {
       toast({
@@ -61,6 +58,7 @@ export const PaymentForm = ({ data }: { data: Payee }) => {
       });
     }
   }
+
 
   return (
     <div>
