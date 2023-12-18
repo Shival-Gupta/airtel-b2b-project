@@ -4,21 +4,8 @@ import { Transaction } from "@prisma/client"
 import { Checkbox } from "@/components/ui/checkbox"
 import { ColumnDef } from "@tanstack/react-table"
 import { Button } from "@/components/ui/button"
-import { ArrowUpDown, BadgeIndianRupee, Copy, MoreHorizontal, Trash, History, UserRoundCog } from "lucide-react"
+import { ArrowUpDown, Copy, MoreHorizontal, UserRoundCog } from "lucide-react"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
-import { useToast } from "@/components/ui/use-toast"
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog"
-import Link from "next/link"
 
 
 export type DataType = Transaction
@@ -105,7 +92,6 @@ export const columns: ColumnDef<DataType>[] = [
     header: () => <div className="text-center">Actions</div>,
     cell: ({ row }) => {
       const rowData = row.original
-      const { toast } = useToast();
       return (
         <div className="flex justify-center align-middle">
 

@@ -104,7 +104,7 @@ export const AddPayeeForm = () => {
                       <Input placeholder="AIRP0000001" {...field} onChange={(e) => field.onChange(e.target.value.toUpperCase())} />
                     </FormControl>
                     <FormDescription>
-                      Check your bank's passbook for IFSC code
+                      Check your bank&apos;s passbook for IFSC code
                     </FormDescription>
                     <FormMessage />
                   </FormItem>

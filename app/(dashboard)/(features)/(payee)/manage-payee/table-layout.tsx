@@ -6,7 +6,6 @@ import { ColumnDef } from "@tanstack/react-table"
 import { Button } from "@/components/ui/button"
 import { ArrowUpDown, BadgeIndianRupee, Copy, MoreHorizontal, Trash, History, UserRoundCog } from "lucide-react"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
-import { useToast } from "@/components/ui/use-toast"
 import {
   AlertDialog,
   AlertDialogAction,
@@ -119,7 +118,6 @@ export const columns: ColumnDef<DataType>[] = [
     header: () => <div className="text-center">Actions</div>,
     cell: ({ row }) => {
       const rowData = row.original
-      const { toast } = useToast();
       return (
         <div className="flex justify-center align-middle">
           {/* Initiate Payment */}
@@ -142,7 +140,7 @@ export const columns: ColumnDef<DataType>[] = [
               <AlertDialogHeader>
                 <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
                 <AlertDialogDescription>
-                  This action cannot be undone. This will permanently remove <b>{row.getValue("payee_name")}</b> from your organization's payee list.
+                  This action cannot be undone. This will permanently remove <b>{row.getValue("payee_name")}</b> from your organization&apos;s payee list.
                 </AlertDialogDescription>
               </AlertDialogHeader>
               <AlertDialogFooter>

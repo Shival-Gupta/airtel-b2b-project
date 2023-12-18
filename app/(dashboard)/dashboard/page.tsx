@@ -68,11 +68,11 @@ export default async function DashboardPage() {
             {/* Dashboard Tab content */}
             <TabsContent value="dashboard" className="space-y-4">
               <h2 className="text-3xl font-bold tracking-tight">Dashboard</h2>
-              <div className="grid gap-4 grid-cols-2 md:grid-cols-4 lg:grid-cols-6">
+              <div className="grid gap-4 grid-cols-2 h-max w-max md:grid-cols-4 lg:grid-cols-6">
                 <>
                   {dashboardButtons.map((button, index) => (
                     <CardButton key={index} href={button.href}>
-                      <div className="flex justify-center text-sm font-bold">
+                      <div className="flex justify-center text-sm font-bold hover:text-primary">
                         {button.text}
                       </div>
                     </CardButton>
@@ -137,11 +137,11 @@ export default async function DashboardPage() {
             {/* Payment Tab content */}
             <TabsContent value="payment" className="space-y-4">
               <h2 className="text-3xl font-bold tracking-tight">Payment</h2>
-              <div className="grid gap-4 grid-cols-2 md:grid-cols-4 lg:grid-cols-6">
+              <div className="grid gap-4 grid-cols-2 h-max w-max md:grid-cols-4 lg:grid-cols-6">
                 <>
                   {paymentButtons.map((button, index) => (
                     <CardButton key={index} href={button.href}>
-                      <div className="flex justify-center text-sm font-bold">
+                      <div className="flex justify-center text-sm font-bold hover:text-primary">
                         {button.text}
                       </div>
                     </CardButton>
@@ -153,11 +153,11 @@ export default async function DashboardPage() {
             {/* Accounts Tab content */}
             <TabsContent value="accounts" className="space-y-4">
               <h2 className="text-3xl font-bold tracking-tight">Accounts</h2>
-              <div className="grid gap-4 grid-cols-2 md:grid-cols-4 lg:grid-cols-6">
+              <div className="grid gap-4 grid-cols-2 h-max w-max md:grid-cols-4 lg:grid-cols-6">
                 <>
                   {accountsButtons.map((button, index) => (
                     <CardButton key={index} href={button.href}>
-                      <div className="flex justify-center text-sm font-bold">
+                      <div className="flex justify-center text-sm font-bold hover:text-primary">
                         {button.text}
                       </div>
                     </CardButton>
