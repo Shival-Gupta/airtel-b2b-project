@@ -8,7 +8,7 @@ async function getData(): Promise<DataType[] | undefined> {
   return await getPayeeList()
 }
 
-export const PaymentPage = async () => {
+export default async function PaymentPage() {
   const data = await getData()
   return (
     <div className="space-y-4">
@@ -31,5 +31,3 @@ export const PaymentPage = async () => {
     </div>
   )
 }
-
-export default PaymentPage
